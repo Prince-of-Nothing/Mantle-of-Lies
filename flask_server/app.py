@@ -5,9 +5,9 @@ import webbrowser
 
 app = Flask(__name__)
 
-OLLAMA_API_URL = "http://ollama-1:11434/api/generate"  # <-- service name, not localhost
+OLLAMA_API_URL = "http://ollama-1:11434/api/generate"  # <-- service name, not localhost, you would need localhost , if you were to run it not as a container in docker
 
-# Store conversation in memory
+
 conversation_history = []
 
 html_template = """
@@ -103,7 +103,6 @@ def generate():
 
     # Add user message to conversation
     conversation_history.append({"sender": "user", "message": prompt})
-
     payload = {"model": "mistral", "prompt": prompt, "stream": False}
 
     try:
@@ -121,3 +120,4 @@ def generate():
 if __name__ == "__main__":
     threading.Timer(1.5, lambda: webbrowser.open("http://localhost:5000")).start()
     app.run(host="0.0.0.0", port=5000)
+
